@@ -42,9 +42,15 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              modules: {
-                localIdentName: '[name]__[local]--[hash:base64:5]',
-              },
+              // Set to false to speed up build time
+              sourceMap: false,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              // Set to false to speed up build time
+              sourceMap: false,
             },
           },
         ],
