@@ -1,11 +1,13 @@
 import React from 'react'
 import { Route, Switch } from 'react-router'
 import { NavLink } from 'react-router-dom'
+import { CSSTransition, SwitchTransition } from 'react-transition-group'
 
 // Entry-point for routes shared between client and server
 import routes from './routes/routes'
 
 import styles from './app.css'
+import './transition.css'
 
 const App = () => (
   <div>
@@ -21,11 +23,21 @@ const App = () => (
     </nav>
 
     <main className={styles.main}>
-      <Switch>
-        {routes.map(route => (
-          <Route key={route.name} {...route} />
-        ))}
-      </Switch>
+      <Route render={({ location }) => (
+        <SwitchTransition>
+          <CSSTransition
+            timeout={300}
+            classNames="fade"
+            key={location.key}
+          >
+            <Switch location={location}>
+              {routes.map(route => (
+                <Route key={route.name} {...route} />
+              ))}
+            </Switch>
+          </CSSTransition>
+        </SwitchTransition>
+      )} />
     </main>
   </div>
 )
